@@ -1,10 +1,14 @@
 import React from 'react';
-import { ChakraProvider, theme, Heading } from '@chakra-ui/react';
+import { ChakraProvider } from '@chakra-ui/react';
+import { customTheme } from './Themes/darkTheme';
+import Navbar from './components/Navbar';
+import PublicRoutes from './Routes/PublicRoutes';
 
 function App() {
   return (
-    <ChakraProvider theme={theme}>
-      <Heading textAlign={'center'}>Space Blog Website by Mahin</Heading>
+    <ChakraProvider theme={customTheme}>
+      <Navbar />
+      <PublicRoutes />
     </ChakraProvider>
   );
 }
