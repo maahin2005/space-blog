@@ -48,7 +48,6 @@ function ThirdSection() {
           'url("https://4kwallpapers.com/images/wallpapers/stars-galaxy-3840x1080-10307.jpg")',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
-        // background: 'fonts.galacticPurple',
 
         textAlign: 'center',
         marginBottom: '50px',
@@ -57,6 +56,7 @@ function ThirdSection() {
     >
       <Heading
         fontSize={{ base: '1.4rem', sm: '1.2rem', md: '2rem', lg: '2.2rem' }}
+        mt={10}
       >
         Galaxies: where stars are born and mysteries unfold
       </Heading>

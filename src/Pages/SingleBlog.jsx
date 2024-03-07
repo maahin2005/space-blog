@@ -1,9 +1,9 @@
 import React from 'react';
 import { Box } from '@chakra-ui/react';
-import { useParams } from 'react-router-dom';
+// import { useParams } from 'react-router-dom';
 
 function SingleBlog() {
-  const blog = useParams();
+  // const blog = useParams();
   return <Box>SingleBlog</Box>;
 }
 
