@@ -29,7 +29,7 @@ const ShinyDivider = () => {
                 position: absolute;
                 top: 50%;
                 transform: translateY(-50%);
-                width: 500px;
+                width: 200px;
                 height: 1px;
                 background: linear-gradient(90deg,#fff,transparent);
             }
@@ -56,18 +56,7 @@ const ShinyDivider = () => {
                     transform: rotate(0) translateX(-1000px); 
                     opacity: 0;
                 }
-            // @keyframes animate {
-            //     0% {
-            //         transform: rotate(0) translateX(0);
-            //         opacity: 1;
-            //     }
-            //     70% {
-            //         opacity: 1;
-            //     }
-            //     100% {
-            //         transform: rotate(0) translateX(-1000px); 
-            //         opacity: 0;
-            //     }
+          
             } `}
       </style>
     </>

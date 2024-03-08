@@ -5,39 +5,40 @@ import { Link } from 'react-router-dom';
 function ThirdSection() {
   function AstronautCard({ title, desc, imgSrc }) {
     return (
-      <Link to={`/blogs/${title}`}>
-        <SimpleGrid
-          width={{ base: '100%', md: '80%', lg: '75%' }}
-          height="fit-content"
-          margin="auto"
-          justifyContent={'center'}
-          alignItems={'start'}
-          p={{ md: 3, lg: 5 }}
-          bg="transparent"
-          cursor={'pointer'}
-          _hover={{
-            boxShadow: 'rgba(3, 102, 214, 0.3) 0px 0px 0px 3px',
-            transform: 'scale(1.08)',
-            transition: 'transform 1s ease-in',
-          }}
-        >
-          <Box maxH={'250px'}>
-            <Image src={imgSrc} margin={'auto'} alt={title} />
+      <SimpleGrid
+        width={{ base: '100%', md: '80%', lg: '75%' }}
+        maxH="550px"
+        height="fit-content"
+        margin="auto"
+        justifyContent={'center'}
+        alignItems={'start'}
+        p={{ md: 3, lg: 5 }}
+        bg="transparent"
+        cursor={'pointer'}
+        _hover={{
+          boxShadow: 'rgba(3, 102, 214, 0.3) 0px 0px 0px 3px',
+          transform: 'scale(1.08)',
+          transition: 'transform 1s ease-in',
+        }}
+      >
+        <Link to={`/blogs/${title}`}>
+          <Box>
+            <Image src={imgSrc} margin={'auto'} alt={title} maxH={'250px'} />
           </Box>
           <Text
             p={{ base: 2, md: 2 }}
             textAlign={'left'}
             fontWeight={600}
             fontSize={{ base: '.9rem', md: '1rem' }}
-            noOfLines={{ base: 8, md: 15 }}
-            overflow="scroll"
+            noOfLines={{ base: 6, md: 12 }}
+            overflow="hidden"
             bg="#3d3d5cbc"
             borderRadius={'0 0 5px 5px'}
           >
             {desc}
           </Text>
-        </SimpleGrid>
-      </Link>
+        </Link>
+      </SimpleGrid>
     );
   }
 
@@ -45,12 +46,12 @@ function ThirdSection() {
     <section
       style={{
         backgroundImage:
-          'url("https://4kwallpapers.com/images/wallpapers/stars-galaxy-3840x1080-10307.jpg")',
+          'url("https://e0.pxfuel.com/wallpapers/70/724/desktop-wallpaper-simple-stars-video-background-loop-black-and-white-aesthetic-space.jpg")',
+
         backgroundSize: 'cover',
         backgroundPosition: 'center',
 
         textAlign: 'center',
-        marginBottom: '50px',
         padding: '20px',
       }}
     >
@@ -93,6 +94,20 @@ function ThirdSection() {
           title="blog2"
         />
       </SimpleGrid>
+      <Link to="/blogs">
+        <Heading
+          color="fonts.stardustGold"
+          mt={10}
+          textDecoration="underline"
+          _hover={{
+            textDecoration: 'none',
+            transform: 'scale(1.08)',
+            transition: 'transform 1s ease-in',
+          }}
+        >
+          Explore More...
+        </Heading>
+      </Link>
     </section>
   );
 }

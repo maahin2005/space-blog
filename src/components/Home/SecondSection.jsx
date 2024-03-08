@@ -7,23 +7,23 @@ import { Link } from 'react-router-dom';
 function SecondSection() {
   function AstronautCard({ title, desc, imgSrc }) {
     return (
-      <Link to={`/blogs/${title}`}>
-        <SimpleGrid
-          width={{ base: '100%', md: '80%', lg: '75%' }}
-          height="fit-content"
-          margin="auto"
-          justifyContent={'center'}
-          alignItems={'start'}
-          p={{ md: 3, lg: 5 }}
-          bg="transparent"
-          cursor={'pointer'}
-          boxShadow="rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px"
-          _hover={{
-            boxShadow: 'rgba(3, 102, 214, 0.3) 0px 0px 0px 3px',
-            transform: 'scale(1.08)',
-            transition: 'transform 1s ease-in',
-          }}
-        >
+      <SimpleGrid
+        width={{ base: '100%', md: '80%', lg: '75%' }}
+        height="fit-content"
+        margin="auto"
+        justifyContent={'center'}
+        alignItems={'start'}
+        p={{ md: 3, lg: 5 }}
+        bg="transparent"
+        cursor={'pointer'}
+        boxShadow="rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px"
+        _hover={{
+          boxShadow: 'rgba(3, 102, 214, 0.3) 0px 0px 0px 3px',
+          transform: 'scale(1.08)',
+          transition: 'transform 1s ease-in',
+        }}
+      >
+        <Link to={`/blogs/${title}`}>
           <Box>
             <Image src={imgSrc} margin={'auto'} alt={title} />
           </Box>
@@ -39,8 +39,8 @@ function SecondSection() {
           >
             {desc}
           </Text>
-        </SimpleGrid>
-      </Link>
+        </Link>
+      </SimpleGrid>
     );
   }
 
@@ -48,7 +48,8 @@ function SecondSection() {
     <section
       style={{
         backgroundImage:
-          'url("https://4kwallpapers.com/images/wallpapers/stars-galaxy-3840x1080-10307.jpg")',
+          'url("https://e0.pxfuel.com/wallpapers/70/724/desktop-wallpaper-simple-stars-video-background-loop-black-and-white-aesthetic-space.jpg")',
+
         textAlign: 'center',
         padding: '20px',
       }}
@@ -75,7 +76,7 @@ function SecondSection() {
       What secrets do the stars hold? What does it feel like to float in
       zero gravity? Find out as we delve into the captivating lives of
       astronauts.`}
-          imgSrc="https://i.pinimg.com/originals/b3/2e/dc/b32edc94a13b9e355663a3c8960720ae.gif"
+          imgSrc="/Images/astro-swim.gif"
           title="blog1"
         />
         <AstronautCard
