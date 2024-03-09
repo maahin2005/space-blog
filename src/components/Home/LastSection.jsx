@@ -1,16 +1,77 @@
 import React, { useContext } from 'react';
-import { Box, Heading, Image, SimpleGrid, Text } from '@chakra-ui/react';
-import { Link } from 'react-router-dom';
-
-import { Flex, Avatar, Button, Icon } from '@chakra-ui/react';
-
-import { Card, CardHeader, CardBody, CardFooter } from '@chakra-ui/react';
-
-import { blogArray } from '../helpers/blogsArray';
+import {
+  Box,
+  Heading,
+  Image,
+  SimpleGrid,
+  Text,
+  Flex,
+  Avatar,
+  Button,
+} from '@chakra-ui/react';
+import { Link, useNavigate } from 'react-router-dom';
 import { FcLikePlaceholder } from 'react-icons/fc';
 import { FaBookReader } from 'react-icons/fa';
-import { useNavigate } from 'react-router-dom';
 import { AllContexts } from '../../Context/DataContext';
+import { blogArray } from '../helpers/blogsArray';
+
+const CreateCards = ({
+  creatorName,
+  blogName,
+  blogDesc,
+  blogImage,
+  likes,
+  avatar_img,
+  index,
+  onClick,
+}) => (
+  <Box
+    maxW="md"
+    bg="#0d1b2a"
+    color="fonts.astronautSilver"
+    fontWeight={700}
+    margin="auto"
+    width={{ base: '100%', md: '80%', lg: '100%' }}
+    textAlign="left"
+    minH="400px" // Set a minimum height for each card
+    borderRadius="lg" // Add border radius for a more polished look
+    boxShadow="lg" // Add shadow for depth
+    p={4} // Add padding for spacing
+    transition="transform 0.3s, box-shadow 0.3s" // Add transition for smoother hover effect
+    _hover={{ transform: 'scale(1.03)', boxShadow: 'xl' }} // Add hover effect
+  >
+    <Flex alignItems="center" mb={4}>
+      <Avatar name={creatorName} src={avatar_img} mr={2} />
+      <Text fontSize="sm">{creatorName}</Text>
+    </Flex>
+    <Heading size="sm" mb={2} noOfLines={1}>
+      {blogName}
+    </Heading>
+    <Text fontSize="md" noOfLines={{ base: 3, md: 4, lg: 5 }} mb={4}>
+      {blogDesc}
+    </Text>
+    <Image src={blogImage} alt="Chakra UI" mb={4} borderRadius="md" />
+    <Flex justify="space-between" alignItems="center">
+      <Button
+        variant="ghost"
+        color="fonts.stardustGold"
+        leftIcon={<FcLikePlaceholder />}
+        fontSize="sm"
+      >
+        {likes}
+      </Button>
+      <Button
+        onClick={onClick}
+        variant="ghost"
+        color="fonts.stardustGold"
+        rightIcon={<FaBookReader />}
+        fontSize="sm"
+      >
+        Read...
+      </Button>
+    </Flex>
+  </Box>
+);
 
 function LastSection() {
   const navigateToReadPage = useNavigate('');
@@ -20,141 +81,30 @@ function LastSection() {
     setIndex(index);
   };
 
-  function CreateCards({
-    creatorName,
-    blogName,
-    blogDesc,
-    blogImage,
-    likes,
-    index,
-  }) {
-    return (
-      <>
-        <Card
-          maxW="md"
-          bg={'#0d1b2a'}
-          color="fonts.astronautSilver"
-          fontWeight={700}
-          margin={'auto'}
-          width={{ base: '100%', md: '80%', lg: '90%' }}
-          textAlign={'left'}
-        >
-          <CardHeader>
-            <Flex spacing="4">
-              <Flex flex="1" gap="4" alignItems="center" flexWrap="wrap">
-                <Avatar
-                  name="Segun Adebayo"
-                  src="https://bit.ly/sage-adebayo"
-                />
-
-                <Box>
-                  <Heading size="sm">{creatorName}</Heading>
-                  <Text>{blogName}</Text>
-                </Box>
-              </Flex>
-            </Flex>
-          </CardHeader>
-          <CardBody>
-            <Text noOfLines={{ base: 3, md: 4, lg: 5 }} overflow={'hidden'}>
-              {blogDesc}
-            </Text>
-          </CardBody>
-          {/* img */}
-          <Image objectFit="cover" src={blogImage} alt="Chakra UI" />
-
-          <CardFooter
-            justify="space-between"
-            flexWrap="wrap"
-            sx={{
-              '& > button': {
-                minW: '136px',
-              },
-            }}
-          >
-            <Flex margin="auto" width="100%" gap={{ base: 1, md: 3 }}>
-              <Button
-                variant="ghost"
-                color="fonts.stardustGold"
-                border={'2px solid transparent'}
-                _hover={{ bg: '#cccccc4b', border: '2px solid #f3f4f6' }}
-              >
-                <Text> {likes} </Text>
-                <Icon as={FcLikePlaceholder} ml={1} boxSize={6} />
-              </Button>
-
-              <Button
-                onClick={() => handleNavigationClick(blogName, index)}
-                variant="ghost"
-                color="fonts.stardustGold"
-                border={'2px solid transparent'}
-                _hover={{ bg: '#cccccc4b', border: '2px solid #f3f4f6' }}
-              >
-                Read... <Icon as={FaBookReader} ml={1} boxSize={5} />
-              </Button>
-            </Flex>
-          </CardFooter>
-        </Card>
-      </>
-    );
-  }
-
   return (
     <Box p={{ base: 2, sm: 5, md: 10 }}>
       <Box width="80%" margin="auto">
-        <Heading>Read Something New...</Heading>
-        <SimpleGrid columns={{ base: 1, sm: 1, md: 2, lg: 3 }} gap={10} mt={5}>
-          <CreateCards
-            creatorName={blogArray[0].creatorName}
-            blogName={blogArray[0].blogName}
-            blogDesc={blogArray[0].blogDesc}
-            blogImage={blogArray[0].blogImage}
-            likes={blogArray[0].likes}
-            index={1}
-          />
-          <CreateCards
-            creatorName={blogArray[1].creatorName}
-            blogName={blogArray[1].blogName}
-            blogDesc={blogArray[1].blogDesc}
-            blogImage={blogArray[1].blogImage}
-            likes={blogArray[1].likes}
-            index={1}
-          />
-          <CreateCards
-            creatorName={blogArray[1].creatorName}
-            blogName={blogArray[1].blogName}
-            blogDesc={blogArray[1].blogDesc}
-            blogImage={blogArray[1].blogImage}
-            likes={blogArray[1].likes}
-            index={1}
-          />
-          <CreateCards
-            creatorName={blogArray[1].creatorName}
-            blogName={blogArray[1].blogName}
-            blogDesc={blogArray[1].blogDesc}
-            blogImage={blogArray[1].blogImage}
-            likes={blogArray[1].likes}
-            index={1}
-          />
-          <CreateCards
-            creatorName={blogArray[1].creatorName}
-            blogName={blogArray[1].blogName}
-            blogDesc={blogArray[1].blogDesc}
-            blogImage={blogArray[1].blogImage}
-            likes={blogArray[1].likes}
-            index={1}
-          />
-          <CreateCards
-            creatorName={blogArray[1].creatorName}
-            blogName={blogArray[1].blogName}
-            blogDesc={blogArray[1].blogDesc}
-            blogImage={blogArray[1].blogImage}
-            likes={blogArray[1].likes}
-            index={1}
-          />
+        <Heading textAlign="center" mb={5}>
+          Read Something New...
+        </Heading>
+        <SimpleGrid columns={{ base: 1, sm: 1, md: 2, lg: 3 }} gap={5}>
+          {blogArray.slice(0, 6).map((blog, index) => (
+            <CreateCards
+              key={index}
+              creatorName={blog.creatorName}
+              blogName={blog.blogName}
+              blogDesc={blog.blogDesc}
+              blogImage={blog.blogImage}
+              likes={blog.likes}
+              avatar_img={blog.avatar_img}
+              index={index + 1}
+              onClick={() => handleNavigationClick(blog.blogName, index)}
+            />
+          ))}
         </SimpleGrid>
         <Link to="/blogs">
           <Heading
-            textAlign={'center'}
+            textAlign="center"
             color="fonts.stardustGold"
             mt={10}
             textDecoration="underline"

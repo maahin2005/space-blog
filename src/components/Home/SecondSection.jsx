@@ -33,6 +33,7 @@ function SecondSection() {
     blogName,
     blogDesc,
     blogImage,
+    avatar_img,
     likes,
     index,
   }) {
@@ -49,7 +50,7 @@ function SecondSection() {
         <CardHeader>
           <Flex spacing="4">
             <Flex flex="1" gap="4" alignItems="center" flexWrap="wrap">
-              <Avatar name="Segun Adebayo" src="https://bit.ly/sage-adebayo" />
+              <Avatar name={creatorName} src={avatar_img} />
 
               <Box>
                 <Heading size="sm">{creatorName}</Heading>
@@ -130,6 +131,7 @@ function SecondSection() {
           blogDesc={blogArray[0].blogDesc}
           blogImage={blogArray[0].blogImage}
           likes={blogArray[0].likes}
+          avatar_img={blogArray[0].avatar_img}
           index={0}
         />
         <AstronautCard
@@ -138,6 +140,7 @@ function SecondSection() {
           blogDesc={blogArray[1].blogDesc}
           blogImage={blogArray[1].blogImage}
           likes={blogArray[1].likes}
+          avatar_img={blogArray[1].avatar_img}
           index={1}
         />
       </SimpleGrid>

@@ -9,15 +9,13 @@ import {
   Image,
   Icon,
 } from '@chakra-ui/react';
-import { Navigate, useParams } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import { AllContexts } from '../Context/DataContext';
 import { blogArray } from '../components/helpers/blogsArray';
 import { FcLikePlaceholder } from 'react-icons/fc';
 
 function SingleBlog() {
   const { index } = useContext(AllContexts);
-
-  const blog = useParams();
 
   useEffect(() => {
     window.scrollTo({
@@ -35,7 +33,7 @@ function SingleBlog() {
         <Container width={'80%'} margin="auto" borderY="2px solid white" py={2}>
           <Heading>{blogArray[index].blogName}</Heading>
           <Flex align="center" gap={2} my={10}>
-            <Avatar name="Segun Adebayo" src={blogArray[index].Avatar} />
+            <Avatar name="Segun Adebayo" src={blogArray[index].avatar_img} />
 
             <Text>{blogArray[index].creatorName} ||</Text>
             <Flex my={5} gap={1} align="center">
@@ -45,7 +43,15 @@ function SingleBlog() {
           </Flex>
 
           <Image src={blogArray[index].blogImage} />
-          <Text mt={5}>{blogArray[index].blogDesc}</Text>
+          <Text mt={5} lineHeight={8} letterSpacing={1}>
+            {blogArray[index].blogDesc}
+          </Text>
+          <Text lineHeight={8} mt={5} letterSpacing={1}>
+            {blogArray[index]?.para2}
+          </Text>
+          <Heading mt={5} size="md" lineHeight={8} letterSpacing={1}>
+            {blogArray[index]?.quote}
+          </Heading>
         </Container>
       </Box>
     </>
