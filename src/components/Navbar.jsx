@@ -46,7 +46,9 @@ function Navbar() {
           alignItems={'center'}
           justifyContent={'space-between'}
         >
-          <Heading>SpaceSparkles</Heading>
+          <Link to={'/'}>
+            <Heading>SpaceSparkles</Heading>
+          </Link>
           <Flex gap={6} display={{ base: 'none', sm: 'flex' }}>
             <ListeningTheIcons
               iconName={RiHomeSmileFill}

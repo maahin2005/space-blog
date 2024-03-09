@@ -1,46 +1,103 @@
-import React from 'react';
-import { Box, Heading, Image, SimpleGrid, Text } from '@chakra-ui/react';
+import React, { useContext } from 'react';
+import {
+  Box,
+  Heading,
+  Image,
+  SimpleGrid,
+  Text,
+  Flex,
+  Avatar,
+  Button,
+  Icon,
+} from '@chakra-ui/react';
+
+import { Card, CardHeader, CardBody, CardFooter } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
-// import { client } from '../../Context/sanity-client';
-// { useEffect, useState }
+
+import { blogArray } from '../helpers/blogsArray';
+import { FcLikePlaceholder } from 'react-icons/fc';
+import { FaBookReader } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
+import { AllContexts } from '../../Context/DataContext';
 
 function SecondSection() {
-  function AstronautCard({ title, desc, imgSrc }) {
+  const navigateToReadPage = useNavigate('');
+  const { setIndex } = useContext(AllContexts);
+  const handleNavigationClick = (blogName, index) => {
+    navigateToReadPage(`/blogs/${blogName}`);
+    setIndex(index);
+  };
+
+  function AstronautCard({
+    creatorName,
+    blogName,
+    blogDesc,
+    blogImage,
+    likes,
+    index,
+  }) {
     return (
-      <SimpleGrid
+      <Card
+        maxW="md"
+        bg={'#0d1b2a'}
+        color="fonts.astronautSilver"
+        fontWeight={700}
+        margin={'auto'}
         width={{ base: '100%', md: '80%', lg: '75%' }}
-        height="fit-content"
-        margin="auto"
-        justifyContent={'center'}
-        alignItems={'start'}
-        p={{ md: 3, lg: 5 }}
-        bg="transparent"
-        cursor={'pointer'}
-        boxShadow="rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px"
-        _hover={{
-          boxShadow: 'rgba(3, 102, 214, 0.3) 0px 0px 0px 3px',
-          transform: 'scale(1.08)',
-          transition: 'transform 1s ease-in',
-        }}
+        textAlign={'left'}
       >
-        <Link to={`/blogs/${title}`}>
-          <Box>
-            <Image src={imgSrc} margin={'auto'} alt={title} />
-          </Box>
-          <Text
-            p={{ base: 2, md: 2 }}
-            textAlign={'left'}
-            fontWeight={600}
-            fontSize={{ base: '.9rem', md: '1rem' }}
-            noOfLines={{ base: 8, md: 15 }}
-            overflow="scroll"
-            bg="#3d3d5cbc"
-            borderRadius={'0 0 5px 5px'}
-          >
-            {desc}
+        <CardHeader>
+          <Flex spacing="4">
+            <Flex flex="1" gap="4" alignItems="center" flexWrap="wrap">
+              <Avatar name="Segun Adebayo" src="https://bit.ly/sage-adebayo" />
+
+              <Box>
+                <Heading size="sm">{creatorName}</Heading>
+                <Text>{blogName}</Text>
+              </Box>
+            </Flex>
+          </Flex>
+        </CardHeader>
+        <CardBody>
+          <Text noOfLines={{ base: 3, md: 4, lg: 5 }} overflow={'hidden'}>
+            {blogDesc}
           </Text>
-        </Link>
-      </SimpleGrid>
+        </CardBody>
+        {/* img */}
+        <Image objectFit="cover" src={blogImage} alt="Chakra UI" />
+
+        <CardFooter
+          justify="space-between"
+          flexWrap="wrap"
+          sx={{
+            '& > button': {
+              minW: '136px',
+            },
+          }}
+        >
+          <Flex margin="auto" width="100%" gap={{ base: 1, md: 3 }}>
+            <Button
+              variant="ghost"
+              color="fonts.stardustGold"
+              border={'2px solid transparent'}
+              _hover={{ bg: '#cccccc4b', border: '2px solid #f3f4f6' }}
+            >
+              <Text> {likes} </Text>
+              <Icon as={FcLikePlaceholder} ml={1} boxSize={6} />
+            </Button>
+
+            <Button
+              onClick={() => handleNavigationClick(blogName, index)}
+              variant="ghost"
+              color="fonts.stardustGold"
+              border={'2px solid transparent'}
+              _hover={{ bg: '#cccccc4b', border: '2px solid #f3f4f6' }}
+            >
+              Read... <Icon as={FaBookReader} ml={1} boxSize={5} />
+            </Button>
+          </Flex>
+        </CardFooter>
+      </Card>
     );
   }
 
@@ -68,28 +125,20 @@ function SecondSection() {
         gap={{ base: 10, md: 2 }}
       >
         <AstronautCard
-          desc={`"Have you ever wondered what it's like to be an astronaut? Explore
-      the fascinating world of astronauts' lives in space and on Earth.
-      Discover the challenges they face, the wonders they witness, and the
-      dreams that drive them. Join us on a journey to understand the
-      extraordinary experiences of those who venture beyond our world.
-      What secrets do the stars hold? What does it feel like to float in
-      zero gravity? Find out as we delve into the captivating lives of
-      astronauts.`}
-          imgSrc="/Images/astro-swim.gif"
-          title="blog1"
+          creatorName={blogArray[0].creatorName}
+          blogName={blogArray[0].blogName}
+          blogDesc={blogArray[0].blogDesc}
+          blogImage={blogArray[0].blogImage}
+          likes={blogArray[0].likes}
+          index={0}
         />
         <AstronautCard
-          desc={`"Have you ever wondered what it's like to be an astronaut? Explore
-      the fascinating world of astronauts' lives in space and on Earth.
-      Discover the challenges they face, the wonders they witness, and the
-      dreams that drive them. Join us on a journey to understand the
-      extraordinary experiences of those who venture beyond our world.
-      What secrets do the stars hold? What does it feel like to float in
-      zero gravity? Find out as we delve into the captivating lives of
-      astronauts.`}
-          imgSrc="/Images/astro-diaries-2.gif"
-          title="blog2"
+          creatorName={blogArray[1].creatorName}
+          blogName={blogArray[1].blogName}
+          blogDesc={blogArray[1].blogDesc}
+          blogImage={blogArray[1].blogImage}
+          likes={blogArray[1].likes}
+          index={1}
         />
       </SimpleGrid>
       <Link to="/blogs">
@@ -111,6 +160,9 @@ function SecondSection() {
 }
 
 export default SecondSection;
+
+// import { client } from '../../Context/sanity-client';
+// { useEffect, useState }
 
 // const [data, setData] = useState([]);
 

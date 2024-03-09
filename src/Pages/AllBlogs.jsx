@@ -14,9 +14,15 @@ import {
 import { Card, CardHeader, CardBody, CardFooter } from '@chakra-ui/react';
 import { FcLikePlaceholder } from 'react-icons/fc';
 import { FaBookReader } from 'react-icons/fa';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { AllContexts } from '../Context/DataContext';
+import { blogArray } from '../components/helpers/blogsArray';
 
 function AllBlogs() {
+  const navigateToReadPage = useNavigate('');
+  const { setIndex } = useContext(AllContexts);
+
   useEffect(() => {
     window.scrollTo({
       top: 0,
@@ -24,36 +30,12 @@ function AllBlogs() {
     });
   }, []);
 
-  const [blogs, setBlogs] = useState([
-    {
-      creatorName: 'Segun Adebayo',
-      blogName: 'Creator, Chakra UI',
-      blogDesc:
-        'With Chakra UI, I wanted to sync the speed of development with the speed of design. I wanted the developer to be just as excited as the designer to create a screen.',
-      blogImage:
-        'https://images.unsplash.com/photo-1531403009284-440f080d1e12?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80',
-      likes: Math.floor(Math.random() * 500),
-    },
-    {
-      creatorName: 'Segun Adebayo',
-      blogName: 'Creator, Chakra UI',
-      blogDesc:
-        'With Chakra UI, I wanted to sync the speed of development with the speed of design. I wanted the developer to be just as excited as the designer to create a screen.',
-      blogImage:
-        'https://images.unsplash.com/photo-1531403009284-440f080d1e12?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80',
-      likes: Math.floor(Math.random() * 500),
-    },
-    {
-      creatorName: 'Segun Adebayo',
-      blogName: 'Creator, Chakra UI',
-      blogDesc:
-        'With Chakra UI, I wanted to sync the speed of development with the speed of design. I wanted the developer to be just as excited as the designer to create a screen.',
-      blogImage:
-        'https://images.unsplash.com/photo-1531403009284-440f080d1e12?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80',
-      likes: Math.floor(Math.random() * 500),
-    },
-    // Add more blogs here
-  ]);
+  const [blogs, setBlogs] = useState(blogArray);
+
+  const handleNavigationClick = (blogName, index) => {
+    navigateToReadPage(`/blogs/${blogName}`);
+    setIndex(index);
+  };
 
   const CreateBlogsCarts = ({
     creatorName,
@@ -61,6 +43,7 @@ function AllBlogs() {
     blogDesc,
     blogImage,
     likes,
+    index,
   }) => {
     return (
       <Card
@@ -82,7 +65,7 @@ function AllBlogs() {
           </Flex>
         </CardHeader>
         <CardBody>
-          <Text noOfLines={{ base: 4, md: 6, lg: 8 }} overflow={'hidden'}>
+          <Text noOfLines={{ base: 4, md: 5, lg: 6 }} overflow={'hidden'}>
             {blogDesc}
           </Text>
         </CardBody>
@@ -98,14 +81,30 @@ function AllBlogs() {
           }}
         >
           <Flex margin="auto" width="100%" gap={3}>
-            <Button variant="ghost" color="fonts.stardustGold">
+            <Button
+              variant="ghost"
+              color="fonts.stardustGold"
+              border={'2px solid transparent'}
+              _hover={{ bg: '#cccccc4b', border: '2px solid #f3f4f6' }}
+            >
               <Text> {likes} </Text>
               <Icon as={FcLikePlaceholder} ml={1} boxSize={6} />
             </Button>
-            <Button variant="ghost" color="fonts.stardustGold">
+            <Button
+              variant="ghost"
+              color="fonts.stardustGold"
+              border={'2px solid transparent'}
+              _hover={{ bg: '#cccccc4b', border: '2px solid #f3f4f6' }}
+            >
               Share
             </Button>
-            <Button variant="ghost" color="fonts.stardustGold">
+            <Button
+              onClick={() => handleNavigationClick(blogName, index)}
+              variant="ghost"
+              color="fonts.stardustGold"
+              border={'2px solid transparent'}
+              _hover={{ bg: '#cccccc4b', border: '2px solid #f3f4f6' }}
+            >
               Let's Read... <Icon as={FaBookReader} ml={1} boxSize={5} />
             </Button>
           </Flex>
@@ -125,8 +124,8 @@ function AllBlogs() {
   return (
     <Box p={{ base: 1, sm: 5, md: 7, lg: 10 }} mt={10}>
       <SimpleGrid
-        columns={{ base: 1, sm: 2, md: 2 }}
-        width={'50%'}
+        columns={{ base: 1, sm: 2, md: 1 }}
+        width={'100%'}
         margin="auto"
         justifyContent={'center'}
         alignItems={'center'}
@@ -143,8 +142,9 @@ function AllBlogs() {
           placeholder={`How many Likes? 🤔`}
           width={'fit-content'}
           bg={'transparent'}
-          justifySelf={'end'}
+          justifySelf={'center'}
           onChange={handleChangeLikes}
+          mb={10}
         >
           <option
             value="higher"
@@ -182,6 +182,7 @@ function AllBlogs() {
             blogDesc={el.blogDesc}
             blogImage={el.blogImage}
             likes={el.likes}
+            index={i}
           />
         ))}
       </SimpleGrid>

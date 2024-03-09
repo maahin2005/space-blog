@@ -35,25 +35,14 @@ function Home() {
             <br /> the great unknown,
             <br /> where the mind soars and the heart dreams.
           </Text>
-          <Box width={{ base: '100%', sm: '80%', md: '100%' }}>
-            <Image
-              width={'100%'}
-              alt="astro"
-              src="./Images/astronaut.png"
-              animation="upAndDown 3s linear infinite"
-            />
-            <style>
-              {`
-          @keyframes upAndDown {
-            0%, 100% {
-              transform: translateY(0);
-            }
-            50% {
-              transform: translateY(-50px);
-            }
-          }
-        `}
-            </style>
+          <Box
+            width={{ base: '100%', sm: '80%', md: '100%' }}
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+            animation="upAndDown 3s linear infinite"
+          >
+            <Image width={'100%'} alt="astro" src="/Images/astronaut.png" />
           </Box>
         </SimpleGrid>
       </Box>
