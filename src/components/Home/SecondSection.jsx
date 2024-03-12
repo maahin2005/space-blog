@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import {
   Box,
   Heading,
@@ -14,19 +14,24 @@ import {
 import { Card, CardHeader, CardBody, CardFooter } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 
-import { blogArray } from '../helpers/blogsArray';
+// import { blogArray } from '../helpers/blogsArray';
 import { FcLikePlaceholder } from 'react-icons/fc';
 import { FaBookReader } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import { AllContexts } from '../../Context/DataContext';
+// import { client } from '../../Context/sanity-client';
+import getData from '../helpers/sanityData';
 
 function SecondSection() {
   const navigateToReadPage = useNavigate('');
-  const { setIndex } = useContext(AllContexts);
+  const { setIndex, setSanityData, sanityData } = useContext(AllContexts);
   const handleNavigationClick = (blogName, index) => {
     navigateToReadPage(`/blogs/${blogName}`);
     setIndex(index);
   };
+
+  let randomNum1 = Math.floor(Math.random() * 7);
+  let randomNum2 = Math.floor(Math.random() * 7);
 
   function AstronautCard({
     creatorName,
@@ -102,6 +107,45 @@ function SecondSection() {
     );
   }
 
+  // async function getData() {
+  //   await client
+  //     .fetch(
+  //       '*[_type == "Space"]{title,body,author->{name, "pic":image.asset->url},readTime,"img":images.asset->url}'
+  //     )
+  //     .then(data => {
+  //       console.log('data: ', data);
+  //     })
+  //     .catch(error => console.error(error));
+
+  // }
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await getData();
+        setSanityData(data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchData();
+  }, [setSanityData]);
+
+  useEffect(() => {
+    getData()
+      .then(data => {
+        console.log('data: ', data);
+        // Handle the data
+        setSanityData(data);
+      })
+      .catch(error => {
+        console.error(error);
+        // Handle the error
+      });
+  }, [setSanityData]);
+
+  // console.log('Sanity Body: ', sanityData[0].author);
+
   return (
     <section
       style={{
@@ -125,24 +169,30 @@ function SecondSection() {
         columns={{ base: 1, md: 2 }}
         gap={{ base: 10, md: 2 }}
       >
-        <AstronautCard
-          creatorName={blogArray[0].creatorName}
-          blogName={blogArray[0].blogName}
-          blogDesc={blogArray[0].blogDesc}
-          blogImage={blogArray[0].blogImage}
-          likes={blogArray[0].likes}
-          avatar_img={blogArray[0].avatar_img}
-          index={0}
-        />
-        <AstronautCard
-          creatorName={blogArray[1].creatorName}
-          blogName={blogArray[1].blogName}
-          blogDesc={blogArray[1].blogDesc}
-          blogImage={blogArray[1].blogImage}
-          likes={blogArray[1].likes}
-          avatar_img={blogArray[1].avatar_img}
-          index={1}
-        />
+        {sanityData[0] ? (
+          <>
+            <AstronautCard
+              creatorName={sanityData[randomNum1].author.name}
+              blogName={sanityData[randomNum1].title}
+              blogDesc={sanityData[randomNum1].body[0].children[0].text}
+              blogImage={sanityData[randomNum1].img}
+              likes={Math.floor(Math.random() * 2000)}
+              avatar_img={sanityData[randomNum1].author.pic}
+              index={randomNum1}
+            />
+            <AstronautCard
+              creatorName={sanityData[randomNum2].author.name}
+              blogName={sanityData[randomNum2].title}
+              blogDesc={sanityData[randomNum2].body[0].children[0].text}
+              blogImage={sanityData[randomNum2].img}
+              likes={Math.floor(Math.random() * 2000)}
+              avatar_img={sanityData[randomNum2].author.pic}
+              index={randomNum2}
+            />
+          </>
+        ) : (
+          'Loading...'
+        )}
       </SimpleGrid>
       <Link to="/blogs">
         <Heading
@@ -164,20 +214,9 @@ function SecondSection() {
 
 export default SecondSection;
 
-// import { client } from '../../Context/sanity-client';
 // { useEffect, useState }
 
 // const [data, setData] = useState([]);
-
-// async function getData() {
-//   await client
-//     .fetch('*[_type == "Space"]{title,body,author,readTime}')
-//     .then(data => {
-//       setData(data);
-//       console.log('data: ', data);
-//     })
-//     .catch(error => console.error(error));
-// }
 
 // useEffect(() => {
 //   getData();

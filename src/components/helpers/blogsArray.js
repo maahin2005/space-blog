@@ -1,20 +1,20 @@
 export const blogArray = [
-  {
-    creatorName: 'Segun Adebayo',
-    blogName: 'Astronaut?',
-    blogDesc: `Have you ever wondered what it's like to be an astronaut? Explore
-      the fascinating world of astronauts' lives in space and on Earth.
-      Discover the challenges they face, the wonders they witness, and the
-      dreams that drive them.`,
-    para2: ` Join us on a journey to understand the
-      extraordinary experiences of those who venture beyond our world.
-      What secrets do the stars hold? What does it feel like to float in
-      zero gravity? Find out as we delve into the captivating lives of
-      astronauts.`,
-    blogImage: '/Images/astro-swim.gif',
-    likes: Math.floor(Math.random() * 2000),
-    avatar_img: 'https://bit.ly/sage-adebayo',
-  },
+  // {
+  //   creatorName: 'Segun Adebayo',
+  //   blogName: 'Astronaut?',
+  //   blogDesc: `Have you ever wondered what it's like to be an astronaut? Explore
+  //     the fascinating world of astronauts' lives in space and on Earth.
+  //     Discover the challenges they face, the wonders they witness, and the
+  //     dreams that drive them.`,
+  //   para2: ` Join us on a journey to understand the
+  //     extraordinary experiences of those who venture beyond our world.
+  //     What secrets do the stars hold? What does it feel like to float in
+  //     zero gravity? Find out as we delve into the captivating lives of
+  //     astronauts.`,
+  //   blogImage: '/Images/astro-swim.gif',
+  //   likes: Math.floor(Math.random() * 2000),
+  //   avatar_img: 'https://bit.ly/sage-adebayo',
+  // },
   {
     creatorName: 'Sirgen Liberty',
     blogName: 'Creator, ever',

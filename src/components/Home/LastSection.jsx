@@ -13,7 +13,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { FcLikePlaceholder } from 'react-icons/fc';
 import { FaBookReader } from 'react-icons/fa';
 import { AllContexts } from '../../Context/DataContext';
-import { blogArray } from '../helpers/blogsArray';
+// import { blogArray } from '../helpers/blogsArray';
 
 const CreateCards = ({
   creatorName,
@@ -75,7 +75,7 @@ const CreateCards = ({
 
 function LastSection() {
   const navigateToReadPage = useNavigate('');
-  const { setIndex } = useContext(AllContexts);
+  const { setIndex, sanityData } = useContext(AllContexts);
   const handleNavigationClick = (blogName, index) => {
     navigateToReadPage(`/blogs/${blogName}`);
     setIndex(index);
@@ -88,17 +88,17 @@ function LastSection() {
           Read Something New...
         </Heading>
         <SimpleGrid columns={{ base: 1, sm: 1, md: 2, lg: 3 }} gap={5}>
-          {blogArray.slice(0, 6).map((blog, index) => (
+          {sanityData.slice(0, 6).map((blog, index) => (
             <CreateCards
               key={index}
-              creatorName={blog.creatorName}
-              blogName={blog.blogName}
-              blogDesc={blog.blogDesc}
-              blogImage={blog.blogImage}
-              likes={blog.likes}
-              avatar_img={blog.avatar_img}
+              creatorName={blog.author.name}
+              blogName={blog.title}
+              blogDesc={blog.body[0].children[0].text}
+              blogImage={blog.img}
+              likes={Math.floor(Math.random() * 10000)}
+              avatar_img={blog.author.pic}
               index={index + 1}
-              onClick={() => handleNavigationClick(blog.blogName, index)}
+              onClick={() => handleNavigationClick(blog.title, index)}
             />
           ))}
         </SimpleGrid>

@@ -16,12 +16,13 @@ import { FcLikePlaceholder } from 'react-icons/fc';
 import { FaBookReader } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import { AllContexts } from '../Context/DataContext';
-import { blogArray } from '../components/helpers/blogsArray';
+// import { blogArray } from '../components/helpers/blogsArray';
+import getData from '../components/helpers/sanityData';
 
 function AllBlogs() {
   const navigateToReadPage = useNavigate();
-  const { setIndex } = useContext(AllContexts);
-  const [blogs, setBlogs] = useState(blogArray);
+  const { setIndex, sanityData, setSanityData } = useContext(AllContexts);
+  const [blogs, setBlogs] = useState(sanityData);
   const [currentPage, setCurrentPage] = useState(1);
   const blogsPerPage = 6;
   const indexOfLastBlog = currentPage * blogsPerPage;
@@ -30,7 +31,21 @@ function AllBlogs() {
 
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0 });
+    setIndex(null);
   }, []);
+
+  useEffect(() => {
+    getData()
+      .then(data => {
+        console.log('data: ', data);
+        // Handle the data
+        setSanityData(data);
+      })
+      .catch(error => {
+        console.error(error);
+        // Handle the error
+      });
+  }, [setSanityData]);
 
   const handleNavigationClick = (blogName, index) => {
     navigateToReadPage(`/blogs/${blogName}`);
@@ -90,12 +105,12 @@ function AllBlogs() {
         {currentBlogs.map((el, i) => (
           <CreateBlogsCards
             key={i}
-            creatorName={el.creatorName}
-            blogName={el.blogName}
-            blogDesc={el.blogDesc}
-            blogImage={el.blogImage}
-            likes={el.likes}
-            avatar_img={el.avatar_img}
+            creatorName={el.author.name}
+            blogName={el.title}
+            blogDesc={el.body[0].children[0].text}
+            blogImage={el.img}
+            likes={Math.floor(Math.random() * 2000)}
+            avatar_img={el.author.pic}
             index={i}
             handleNavigationClick={handleNavigationClick}
           />

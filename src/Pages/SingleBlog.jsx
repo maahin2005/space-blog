@@ -11,17 +11,20 @@ import {
 } from '@chakra-ui/react';
 import { Navigate } from 'react-router-dom';
 import { AllContexts } from '../Context/DataContext';
-import { blogArray } from '../components/helpers/blogsArray';
+// import { blogArray } from '../components/helpers/blogsArray';
 import { FcLikePlaceholder } from 'react-icons/fc';
+// import getData from '../components/helpers/sanityData';
 
 function SingleBlog() {
-  const { index } = useContext(AllContexts);
+  const { index, sanityData } = useContext(AllContexts);
 
   useEffect(() => {
     window.scrollTo({
       top: 0,
       left: 0,
     });
+
+    // console.log(sanityData[index].body[0].children[2].text);
   }, []);
 
   if (index === null) {
@@ -31,27 +34,21 @@ function SingleBlog() {
     <>
       <Box p={{ base: 3, md: 10 }} mt={10}>
         <Container width={'80%'} margin="auto" borderY="2px solid white" py={2}>
-          <Heading>{blogArray[index].blogName}</Heading>
+          <Heading>{sanityData[index].title}</Heading>
           <Flex align="center" gap={2} my={10}>
-            <Avatar name="Segun Adebayo" src={blogArray[index].avatar_img} />
+            <Avatar name="Segun Adebayo" src={sanityData[index].author.pic} />
 
-            <Text>{blogArray[index].creatorName} ||</Text>
+            <Text>{sanityData[index].author.name} ||</Text>
             <Flex my={5} gap={1} align="center">
-              <Text>{blogArray[index].likes}</Text>
               <Icon as={FcLikePlaceholder} />
             </Flex>
           </Flex>
 
-          <Image src={blogArray[index].blogImage} />
+          <Image src={sanityData[index].img} />
           <Text mt={5} lineHeight={8} letterSpacing={1}>
-            {blogArray[index].blogDesc}
+            {/* {sanityData[index].body.map(el => el.map(el => el.text))} */}
+            {sanityData[index].body[0].children.map(el => el.text)}
           </Text>
-          <Text lineHeight={8} mt={5} letterSpacing={1}>
-            {blogArray[index]?.para2}
-          </Text>
-          <Heading mt={5} size="md" lineHeight={8} letterSpacing={1}>
-            {blogArray[index]?.quote}
-          </Heading>
         </Container>
       </Box>
     </>
