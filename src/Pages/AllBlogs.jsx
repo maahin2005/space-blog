@@ -9,7 +9,7 @@ import {
   Image,
   Button,
   Icon,
-  Select,
+  // Select,
 } from '@chakra-ui/react';
 import { Card, CardHeader, CardBody, CardFooter } from '@chakra-ui/react';
 import { FcLikePlaceholder } from 'react-icons/fc';
@@ -52,13 +52,13 @@ function AllBlogs() {
     setIndex(index);
   };
 
-  const handleChangeLikes = e => {
-    if (e.target.value === 'higher') {
-      setBlogs([...blogs].sort((a, b) => b.likes - a.likes));
-    } else if (e.target.value === 'lower') {
-      setBlogs([...blogs].sort((a, b) => a.likes - b.likes));
-    }
-  };
+  // const handleChangeLikes = e => {
+  //   if (e.target.value === 'higher') {
+  //     setBlogs([...blogs].sort((a, b) => b.likes - a.likes));
+  //   } else if (e.target.value === 'lower') {
+  //     setBlogs([...blogs].sort((a, b) => a.likes - b.likes));
+  //   }
+  // };
 
   const paginate = pageNumber => setCurrentPage(pageNumber);
 
@@ -79,7 +79,7 @@ function AllBlogs() {
         >
           More Stories Await
         </Heading>
-        <Select
+        {/* <Select
           placeholder={`How many Likes? 🤔`}
           width={'fit-content'}
           bg={'transparent'}
@@ -89,7 +89,7 @@ function AllBlogs() {
         >
           <option value="higher">Higher Likes</option>
           <option value="lower">Lower Likes</option>
-        </Select>
+        </Select> */}
         <Pagination
           blogsPerPage={blogsPerPage}
           totalBlogs={blogs.length}
@@ -109,7 +109,7 @@ function AllBlogs() {
             blogName={el.title}
             blogDesc={el.body[0].children[0].text}
             blogImage={el.img}
-            likes={Math.floor(Math.random() * 2000)}
+            likes={Math.floor(Math.random() * 2000 * i + 10 * 30)}
             avatar_img={el.author.pic}
             index={i}
             handleNavigationClick={handleNavigationClick}
